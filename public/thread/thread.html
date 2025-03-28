@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>掲示板</h1>
+    <div id="thread">
+      <h1 id="threadName"></h1>
+    </div>
+    <div id="form">
+      <h2 id="Warning"></h2>
+      <h3>名前を入力</h3>
+      <input type="text" id="name" value="名無しさん" />
+      <h3>チャットを入力</h3>
+      <input type="text" id="content" placeholder="チャットを入力" />
+      <input type="submit" onclick="send()" />
+    </div>
+  </body>
+  <script src="postChats.js"></script>
+  <script src="getChats.js"></script>
+</html>

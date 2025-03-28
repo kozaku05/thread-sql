@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>掲示板</title>
+  </head>
+  <body>
+    <h1>掲示板</h1>
+    <div id="threads">
+      <h1>スレッド一覧</h1>
+      <ul id="threadList"></ul>
+    </div>
+    <div id="createFoam">
+      <h1>スレッド作成</h1>
+      <h2 id="Warning"></h2>
+      <input type="text" id="threadName" />
+      <input type="submit" onclick="create()" />
+    </div>
+  </body>
+  <script src="getThreads.js"></script>
+  <script src="createThreads.js"></script>
+</html>

@@ -1,0 +1,19 @@
+mysql> desc threads;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| thread_id   | int         | NO   | PRI | NULL    | auto_increment |
+| thread_name | varchar(40) | NO   |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+
+mysql> desc chats;
++----------------------+--------------+------+-----+-------------------+-------------------+
+| Field                | Type         | Null | Key | Default           | Extra             |
++----------------------+--------------+------+-----+-------------------+-------------------+
+| user_name            | varchar(20)  | NO   |     | NULL              |                   |
+| message              | varchar(200) | NO   |     | NULL              |                   |
+| in_thread_message_id | int          | NO   |     | NULL              |                   |
+| message_id           | int          | NO   | PRI | NULL              | auto_increment    |
+| post_time            | timestamp    | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| thread_id            | int          | NO   |     | NULL              |                   |
++----------------------+--------------+------+-----+-------------------+-------------------+
