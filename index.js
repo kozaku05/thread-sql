@@ -1,10 +1,21 @@
 const mysql = require("mysql2");
 const express = require("express");
-const crypto = require("crypto");
+const websocket = require("ws");
+const http = require("http");
 const app = express();
+const server = http.createServer(app);
+const wss = new websocket.Server({ server });
+server.listen(3000);
 app.use(express.json());
 app.use(express.static("public"));
 app.use(express.static("./public/thread"));
+const client = new Set();
+wss.on("connection", (ws) => {
+  client.add(ws);
+});
+wss.on("close", (ws) => {
+  client.delete(ws);
+});
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -31,9 +42,6 @@ async function checkThread(id) {
     );
   });
 }
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "index.html");
-});
 //スレッド作成
 app.post("/create", (req, res) => {
   let { threadName } = req.body;
@@ -136,6 +144,17 @@ app.post("/send/:id", async (req, res) => {
       sending = false;
     }
   );
+  client.forEach((client) => {
+    client.send(
+      JSON.stringify({
+        threadId: id,
+        name: name,
+        in_thread_message_id: in_thread_message_id,
+        content: content,
+      })
+    );
+  });
+  console.log(ip, "threadId:" + id, "message:" + content);
 });
 //チャット内容取得する
 app.get("/info/:id", async (req, res) => {
@@ -165,18 +184,5 @@ app.get("/threads", (req, res) => {
     res.status(200).json(result);
   });
 });
-// 管理者パスワード
-let pass;
-function genPass() {
-  pass = crypto.randomUUID();
-  console.log("new pass: " + pass);
-  setTimeout(genPass, 60000);
-}
-genPass();
-//管理者画面
-app.get(`/${pass}`, (req, res) => {
-  res.sendFile(__dirname + "/public/admin/index.html");
-});
 //通報時
 app.post("/report", (req, res) => {});
-app.listen(80);

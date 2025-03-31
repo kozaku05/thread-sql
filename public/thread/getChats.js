@@ -23,14 +23,15 @@ const thread = document.getElementById("thread");
     div.appendChild(content);
     name.appendChild(time);
     thread.appendChild(div);
+    localStorage.setItem("in_thread_message_id", i + 1);
   }
   const element = document.documentElement;
   const bottom = element.scrollHeight - element.clientHeight;
   window.scroll(0, bottom);
   if (info.length > 1000) {
     document.getElementById("form").style.display = "none";
-    const message = document.createElement("h1");
-    message.textContent = "1000おめでとう！";
+    const message = document.createElement("h2");
+    message.textContent = "1000以上書き込めません";
     document.getElementById("thread").appendChild(message);
   }
 })();
